@@ -1,0 +1,35 @@
+version: '1.0'
+
+steps:
+  build_step:
+    type: build
+    description: UC - build step
+    image_name: codefreshio/yaml-example-volumes-compose-step
+    dockerfile: Dockerfile
+    tag: ${{CF_BRANCH}}
+
+  step_file_generation:
+    type: composition
+    composition:
+      version: '2'
+      services:
+        service-name:
+          volumes:
+            - ${{CF_VOLUME}}:/codefresh/volume
+          image: ${{build_step}}
+          command: bash -c "echo hello > /codefresh/volume/myfile.txt"
+      volumes:
+        ${{CF_VOLUME}}:
+          external: true
+    composition_candidates:
+      test:
+        image: ${{build_step}}
+        command: echo hello
+
+  use previous file:
+    image: alpine:latest
+    working_directory: ${{main_clone}}
+    commands:
+      - ls /codefresh/volume/
+      - echo using previous file. printing its content
+      - cat /codefresh/volume/myfile.txt
