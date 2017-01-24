@@ -1,1 +1,3 @@
 # cf-example-shared-volumes-composition-step
+
+[![Codefresh build status]( https://g.codefresh.io/api/badges/build?repoOwner=codefreshdemo&repoName=cf-example-shared-volumes-composition-step&branch=master&pipelineName=cf-example-shared-volumes-composition-step&accountName=nikolai&type=cf-1)]( https://g.codefresh.io/repositories/codefreshdemo/cf-example-shared-volumes-composition-step/builds?filter=trigger:build;branch:master;service:58396a16790f900100344cee~cf-example-shared-volumes-composition-step)

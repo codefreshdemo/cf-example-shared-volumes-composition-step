@@ -11,15 +11,22 @@ steps:
   step_file_generation:
     type: composition
     composition:
-      service-name:
-        volumes:
-          - ${{CF_VOLUME}}:/codefresh/volume
-        image: ${{build_step}}
-        command: bash -c "echo hello > /codefresh/volume/myfile.txt"
+      version: '2'
+      services:
+        service-name:
+          volumes:
+            - ${{CF_VOLUME}}:/codefresh/volume
+          image: ${{build_step}}
+          command: bash -c "echo hello > /codefresh/volume/myfile.txt"
+      volumes:
+         ${{CF_VOLUME}}:
+         external: true
     composition_candidates:
       test:
         image: ${{build_step}}
         command: echo hello
+        volumes:
+           - ${{CF_VOLUME}}:/codefresh/volume
 
   use previous file:
     image: alpine:latest
