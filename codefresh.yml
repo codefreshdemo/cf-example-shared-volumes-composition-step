@@ -14,8 +14,8 @@ steps:
       version: '2'
       services:
         service-name:
-          volumes:
-            - ${{CF_VOLUME}}:/codefresh/volume
+#          volumes:
+#            - ${{CF_VOLUME}}:/codefresh/volume
           image: ${{build_step}}
           command: bash -c "echo hello > /codefresh/volume/myfile.txt"
       volumes:
