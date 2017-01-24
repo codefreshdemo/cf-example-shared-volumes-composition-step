@@ -28,7 +28,7 @@ steps:
         volumes:
            - ${{CF_VOLUME}}:/codefresh/volume
 
-  use previous file:
+  use_previous_file:
     image: alpine:latest
     working_directory: ${{main_clone}}
     commands:
