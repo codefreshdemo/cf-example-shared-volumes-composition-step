@@ -13,6 +13,15 @@ steps:
     composition:
       version: '2'
       services:
+        mysql:
+          image: 'mysql:5.6'
+          ports:
+            - '3306'
+          environment:
+            MYSQL_ROOT_PASSWORD: root-password
+            MYSQL_DATABASE: origination_repository
+            MYSQL_USER: or-user
+            MYSQL_PASSWORD: or-password
         service-name:
           volumes:
             - ${{CF_VOLUME}}:/codefresh/volume
@@ -24,9 +33,12 @@ steps:
     composition_candidates:
       test:
         image: ${{build_step}}
-        command: bash -c "cd /codefresh/volume && sleep 60 && echo hello"
         volumes:
-           - ${{CF_VOLUME}}:/codefresh/volume
+          - ${{CF_VOLUME}}:/codefresh/volume
+        environment:
+          TEST: 'qwerty'
+        command: bash -c "cd /codefresh/volume && ls -l && sleep 60 && echo hello"
+
 
   use_previous_file:
     image: alpine:latest
