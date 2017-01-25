@@ -24,7 +24,7 @@ steps:
     composition_candidates:
       test:
         image: ${{build_step}}
-        command: echo hello
+        command: bash -c "cd /codefresh/volume && sleep 60 && echo hello"
         volumes:
            - ${{CF_VOLUME}}:/codefresh/volume
 
