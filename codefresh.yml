@@ -8,6 +8,12 @@ steps:
     dockerfile: Dockerfile
     tag: ${{CF_BRANCH}}
 
+  use_previous_file:
+    image: alpine:latest
+    working_directory: ${{main_clone}}
+    commands:
+      - ls /codefresh/volume/
+
   step_file_generation:
     type: composition
     composition:
@@ -26,7 +32,7 @@ steps:
           volumes:
             - ${{CF_VOLUME}}:/codefresh/volume
           image: ${{build_step}}
-          command: bash -c "echo hello > /codefresh/volume/myfile.txt"
+          command: bash -c "ls -l /codefresh/volume/ && echo 'add file to volumes' && echo hello > /codefresh/volume/myfile.txt"
       volumes:
          ${{CF_VOLUME}}:
            external: true
@@ -40,10 +46,3 @@ steps:
         command: bash -c "cd /codefresh/volume && ls -l && sleep 60 && echo hello"
 
 
-  use_previous_file:
-    image: alpine:latest
-    working_directory: ${{main_clone}}
-    commands:
-      - ls /codefresh/volume/
-      - echo using previous file. printing its content
-      - cat /codefresh/volume/myfile.txt
