@@ -24,17 +24,17 @@ steps:
             MYSQL_PASSWORD: or-password
         service-name:
           volumes:
-            - ${{CF_VOLUME}}:/codefresh/volume
+            - ${{CF_VOLUME_NAME}}:/codefresh/volume
           image: ${{build_step}}
           command: bash -c "echo hello > /codefresh/volume/myfile.txt"
       volumes:
-         ${{CF_VOLUME}}:
+         ${{CF_VOLUME_NAME}}:
            external: true
     composition_candidates:
       test:
         image: ${{build_step}}
         volumes:
-          - ${{CF_VOLUME}}:/codefresh/volume
+          - ${{CF_VOLUME_NAME}}:/codefresh/volume
         environment:
           TEST: 'qwerty'
         command: bash -c "cd /codefresh/volume && ls -l && sleep 60 && echo hello"
